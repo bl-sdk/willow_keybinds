@@ -28,6 +28,12 @@ jobs:
         sparse-checkout: |
           stubs
 
+    - name: Checkout mods_base
+      uses: actions/checkout@v4
+      with:
+        repository: bl-sdk/mods_base
+        path: mods_base
+
     - name: Add stubs to pyproject
       run: sed -i 's/# CI ADD STUB PATH HERE/stubPath = "pyunrealsdk\/stubs"\nreportMissingModuleSource = false/' pyproject.toml
 
@@ -40,6 +46,23 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Checkout stubs
+      uses: actions/checkout@v4
+      with:
+        repository: bl-sdk/pyunrealsdk
+        path: pyunrealsdk
+        sparse-checkout: |
+          stubs
+
+    - name: Checkout mods_base
+      uses: actions/checkout@v4
+      with:
+        repository: bl-sdk/mods_base
+        path: mods_base
+
+    - name: Add stubs to pyproject
+      run: sed -i 's/# CI ADD STUB PATH HERE/stubPath = "pyunrealsdk\/stubs"\nreportMissingModuleSource = false/' pyproject.toml
 
     - name: Run Ruff Linting
       uses: chartboost/ruff-action@v1
